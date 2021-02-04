@@ -1,0 +1,33 @@
+.\" Manpage for unit-converter.
+.TH unit-converter "1" "February 2021" "unit-converter 0.1.0" "User Commands"
+.SH NAME
+\fBunit-converter\fP \- Convert between metric and imperial units.
+.SH SYNOPSIS
+\fBunit-converter\fP \fB<scalar>\fP \fB<input unit>\fP \fB<output unit>\fP
+.SH DESCRIPTION
+.B unit-converter(1)
+is a tool for converting between units.
+Often, this tool is used to convert from metric units to imperial units.
+.SH OPTIONS
+.TP
+.BR \-h
+Display the help information for \fBunit-converter\fP.
+.SH EXAMPLES
+.TP
+unit-converter 1 in mm
+Convert 1 inch to millimeters.
+.TP
+unit-converter 44.2 furlongs kilometers
+Convert 44.2 furlongs to kilometers.
+.SH AUTHOR
+Elliott Indiran <elliott.indiran@protonmail.com>
+.SH BUGS
+Report bugs here: \fIhttps://github.com/eindiran/unit-converter\fP
+.SH COPYRIGHT
+Copyright: 2021 Elliott Indiran
+.SH LICENSE
+License: GPLv3 <https://www.gnu.org/licenses/gpl-3.0.en.html>
+.BR
+This is free software: you are free to make changes to it for any purpose.
+.BR
+There is \fBNO WARRANTY\fP, to the extent permitted by law.
