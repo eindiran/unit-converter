@@ -4,6 +4,9 @@
 
 set -Eeuo pipefail
 
+# TODO: Add some logic here to check that cargo is installed,
+#       check that the build succeeds, etc. The script should
+#       handle the relevant failures gracefully.
 cargo build --release
 if [[ "$OSTYPE" == "linux-gnu" ]] ; then
     MAN_PATH=/usr/local/man/man1

@@ -211,8 +211,9 @@ struct Opt {
  * Returns: None
  */
 fn main() {
+    // TODO: Add support for units other than lengths.
     let opt = Opt::from_args();
-    // println!("{:#?}", opt)
+    // TODO: What is the correct way to borrow this in Rust?
     let output_units: String = opt.output_units.clone();
     match from_length(to_length(opt.input_length, opt.input_units), opt.output_units) {
         None    => println!("Could not complete conversion"),
