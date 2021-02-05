@@ -35,7 +35,7 @@ fn to_length(input_length: f64, length_unit: String) -> Option<Length> {
         "yard" | "yards" | "y" | "yd" | "yds"                              => Some(Length::from_yards(input_length)),            // Yards
         "foot" | "feet" | "ft" | "'"                                       => Some(Length::from_feet(input_length)),             // Feet
         "inch" | "inches" | "i" | "in" | "\""                              => Some(Length::from_inches(input_length)),           // Inches
-        "thou" | "thous" | "th"                                            => Some(Length::from_inches(input_length / 1000f64)), // Thou
+        "thou" | "th"                                                      => Some(Length::from_inches(input_length / 1000f64)), // Thou
         /* METRIC LENGTH UNITS: */
         "kilometer" | "kilometers" | "kilometre" | "kilometres" | "km"     => Some(Length::from_kilometers(input_length)),       // Kilometers
         "hectometer" | "hectometers" | "hectometre" | "hectometres"| "hm"  => Some(Length::from_hectometers(input_length)),      // Hectometers
@@ -46,6 +46,34 @@ fn to_length(input_length: f64, length_unit: String) -> Option<Length> {
         "nanometer" | "nanometers" | "nanometre" | "nanometres"| "nm"      => Some(Length::from_nanometers(input_length)),       // Nanometers
         /* OTHER: */
         _           => { eprintln!("Unknown unit of input length: {}", length_unit); None }
+    }
+}
+
+
+/**
+ * get_cannonical_unit_name:
+ * Given a String containing a unit name, return the "cannonical name" for that unit.
+ * This will be the fully spelled-out, plural American English variant.
+ */
+fn get_cannonical_unit_name(length_unit: String) -> String {
+    match length_unit.to_lowercase().trim().as_ref() {
+        /* IMPERIAL LENGTH UNITS: */
+        "mile" | "miles" | "mi"                                            => "miles".to_string(),
+        "furlong" | "furlongs" | "fur" | "furs"                            => "furlongs".to_string(),
+        "yard" | "yards" | "y" | "yd" | "yds"                              => "yards".to_string(),
+        "foot" | "feet" | "ft" | "'"                                       => "feet".to_string(),
+        "inch" | "inches" | "i" | "in" | "\""                              => "inches".to_string(),
+        "thou" | "th"                                                      => "thou".to_string(),
+        /* METRIC LENGTH UNITS: */
+        "kilometer" | "kilometers" | "kilometre" | "kilometres" | "km"     => "kilometers".to_string(),
+        "hectometer" | "hectometers" | "hectometre" | "hectometres"| "hm"  => "hectometers".to_string(),
+        "meter" | "meters" | "metre" | "metres" | "m"                      => "meters".to_string(),
+        "decimeter" | "decimeters" | "decimetre" | "decimetres"| "dm"      => "decimeters".to_string(),
+        "centimeter" | "centimeters" | "centimetre" | "centimetres"| "cm"  => "centimeters".to_string(),
+        "millimeter" | "millimeters" | "millimetre" | "millimetres"| "mm"  => "millimeters".to_string(),
+        "nanometer" | "nanometers" | "nanometre" | "nanometres"| "nm"      => "nanometers".to_string(),
+        /* OTHER: */
+        _                                                                  => length_unit
     }
 }
 
@@ -71,7 +99,7 @@ fn from_length(length: Option<Length>, output_unit: String) -> Option<f64> {
                 "yard" | "yards" | "y" | "yd" | "yds"                              => Some(l.as_yards()),            // Yards
                 "foot" | "feet" | "ft" | "'"                                       => Some(l.as_feet()),             // Feet
                 "inch" | "inches" | "i" | "in" | "\""                              => Some(l.as_inches()),           // Inches
-                "thou" | "thous" | "th"                                            => Some(l.as_inches() / 1000f64), // Thou
+                "thou" | "th"                                                      => Some(l.as_inches() / 1000f64), // Thou
                 /* METRIC LENGTH UNITS: */
                 "kilometer" | "kilometers" | "kilometre" | "kilometres" | "km"     => Some(l.as_kilometers()),       // Kilometers
                 "hectometer" | "hectometers" | "hectometre" | "hectometres"| "hm"  => Some(l.as_hectometers()),      // Hectometers
@@ -115,6 +143,6 @@ fn main() {
     let output_units: String = opt.output_units.clone();
     match from_length(to_length(opt.input_length, opt.input_units), opt.output_units) {
         None    => println!("Could not complete conversion"),
-        Some(f) => println!("{} {}", f, output_units)
+        Some(f) => println!("{} {}", f, get_cannonical_unit_name(output_units))
     }
 }
