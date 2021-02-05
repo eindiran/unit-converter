@@ -54,6 +54,11 @@ fn to_length(input_length: f64, length_unit: String) -> Option<Length> {
  * get_cannonical_unit_name:
  * Given a String containing a unit name, return the "cannonical name" for that unit.
  * This will be the fully spelled-out, plural American English variant.
+ *
+ * Arguments:
+ *      length_unit (String)
+ *
+ * Returns: String
  */
 fn get_cannonical_unit_name(length_unit: String) -> String {
     match length_unit.to_lowercase().trim().as_ref() {
@@ -73,6 +78,8 @@ fn get_cannonical_unit_name(length_unit: String) -> String {
         "millimeter" | "millimeters" | "millimetre" | "millimetres"| "mm"  => "millimeters".to_string(),
         "nanometer" | "nanometers" | "nanometre" | "nanometres"| "nm"      => "nanometers".to_string(),
         /* OTHER: */
+        // In this case, we want to just use the old units; however we shouldn't actually hit this
+        // branch in practice.
         _                                                                  => length_unit
     }
 }
